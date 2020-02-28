@@ -85,7 +85,7 @@ function getInputValue($name){
 <input id="password2" name="password2" type="password" placeholder="mot de passe" required></input>
 </p>
 
-<button type="submit" name="registerButton">Créer le compte</button>
+<button type="submit" name="registerButton">Créer le Compte</button>
 </form>
   </div>  
 </body>
