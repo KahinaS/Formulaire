@@ -1,10 +1,12 @@
 <?php
+include("includes/config.php");
 include("includes/classes/Account.php");
 include("includes/classes/Constants.php");
-$account = new Account();
+$account = new Account($con);
 
 include("includes/handlers/register-handler.php");
 include("includes/handlers/login-handler.php");
+
 //IMPORTER
 function getInputValue($name){
     if(isset($_POST[$name])){
@@ -26,7 +28,7 @@ function getInputValue($name){
 <form id="loginForm" action="register.php" method="POST">
 <h2>Se connecter à son compte</h2>
 <p>
-  
+<?php echo $account ->getError(Constants::$loginFailed);//RAPPELLE UNE ERREUR?>
     <label for="loginUserName">Pseudo</label>
 <input id="loginUserName" name="loginUserName" type="text" placeholder="ex:Rodrigo" required></input>
 </p>
@@ -43,6 +45,7 @@ function getInputValue($name){
 <h2>Créer son compte</h2>
 <p>
 <?php echo $account ->getError(Constants::$usernameCharacters);//RAPPELLE UNE ERREUR?>
+<?php echo $account ->getError(Constants::$usernameTaken);//RAPPELLE UNE ERREUR?>
     <label for="username">Pseudo</label>
 <input id="username" name="username" type="text" placeholder="Pseudo" value="<?php getInputValue('username')?>" required></input>
 </p>
@@ -50,25 +53,26 @@ function getInputValue($name){
 <p>
 <?php echo $account -> getError(Constants::$firstNameCharacters);//RAPPELLE UNE ERREUR?>
     <label for="firstName">Prénom</label>
-<input id="firstName" name="firstName" type="text" placeholder="ex:Rudy" required></input>
+<input id="firstName" name="firstName" type="text" placeholder="ex:Rudy" value="<?php getInputValue('firstName')?>" required></input>
 </p>
 
 <p>
 <?php echo $account -> getError(Constants::$lastNameCharacters);//RAPPELLE UNE ERREUR?>
     <label for="lastName">Nom de famille</label>
-<input id="lastName" name="lastName" type="text" placeholder="ex:Gonzales" required></input>
+<input id="lastName" name="lastName" type="text" placeholder="ex:Gonzales" value="<?php getInputValue('lastName')?>" required></input>
 </p>
 
 <p>
+<?php echo $account -> getError(Constants::$emailTaken);//RAPPELLE UNE ERREUR?>
 <?php echo $account -> getError(Constants::$emailInvalid);//RAPPELLE UNE ERREUR?>
 <?php echo $account -> getError(Constants:: $emailDoNotMatch);//RAPPELLE UNE ERREUR?>
     <label for="email">Email</label>
-<input id="email" name="email" type="email" placeholder="ex : rudyportuguesh@gmail.com" required></input>
+<input id="email" name="email" type="email" placeholder="ex : rudyportuguesh@gmail.com" value="<?php getInputValue('email')?>" required></input>
 </p>
 
 <p>
   <label for="email2">Confirmer son Email</label>
-<input id="email2" name="email2" type="email" placeholder="ex : rudyportuguesh@gmail.com" required></input>
+<input id="email2" name="email2" type="email" placeholder="ex : rudyportuguesh@gmail.com" value="<?php getInputValue('email2')?>" required></input>
 </p>
 
 
